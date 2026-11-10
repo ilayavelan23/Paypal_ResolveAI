@@ -1,6 +1,6 @@
 # Paypal Dispute Compass
 
-https://github.com/ilayavelan23/Paypal-ResolveAI
+
 
 # PayPal ResolveAI
 ### AI-Powered Payment Resolution Assistant
