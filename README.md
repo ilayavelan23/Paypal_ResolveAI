@@ -2,23 +2,53 @@
 
 https://github.com/ilayavelan23/Paypal-ResolveAI
 
-This project was built with [Lovable](https://lovable.dev).
+# PayPal ResolveAI
+### AI-Powered Payment Resolution Assistant
 
-## Build with Lovable
+PayPal ResolveAI is an AI-powered fintech application designed to simplify payment issue resolution using a multi-agent AI architecture. It aims to help users investigate transactions, identify potential fraud risks, receive refund guidance, and manage payment disputes through an intelligent assistant.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3625d958-65b4-4ee9-8146-cce2e60e9153).
+## Key Features
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Transaction Detective:** Assists with investigating pending, failed, and completed transactions.
+- **Fraud Guardian:** Analyzes suspicious transaction patterns and highlights potential risk indicators.
+- **Refund Assistant:** Provides refund eligibility guidance and helps users understand refund processes.
+- **Dispute Assistant:** Helps users understand disputes and organize supporting evidence.
+- **AI Coordinator:** Routes user requests to the appropriate specialized AI agent.
+- **Payment Dashboard:** Provides a centralized interface for payment-related information and assistance.
 
-## Development
+## Technology Stack
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+- Frontend: React, TypeScript, Tailwind CSS
+- Backend: Secure server-side application
+- Payment Integration: PayPal REST API and PayPal Sandbox
+- AI: Multi-agent AI architecture
+- Database: Project database with user-specific access controls
 
-```sh
-git clone <this-repository-url>
+## Project Objective
+
+To make digital payment support smarter, safer, and more accessible by combining PayPal payment technology with AI-powered assistance.
+
+## Getting Started
+
+Clone the repository:
+
+```bash
+git clone <your-repository-url>
 cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+Configure the required environment variables before running the application. Never expose PayPal credentials or API secrets in frontend code or public repositories.
+
+## Project Status
+
+Developed as a fintech hackathon project. PayPal Sandbox integration, AI agent functionality, and application features should be evaluated according to the capabilities implemented and tested in the current version.
+
+## Disclaimer
+
+PayPal ResolveAI is an independent hackathon project and is not an official PayPal product or service.
+
+## License
+
+This project is licensed under the MIT License.
