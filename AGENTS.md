@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- App code was ported from the workspace project "Paypal Resolve Compass"; keep its structure (routes under `src/routes/_authenticated`, PayPal calls in `src/lib/paypal.server.ts`, AI agents in `src/lib/agents`) so the two stay comparable.
+- PayPal credentials are read only server-side from `PAYPAL_CLIENT_ID` / `PAYPAL_CLIENT_SECRET` / `PAYPAL_WEBHOOK_ID`; the app must keep working on DEMO data when they are missing.
