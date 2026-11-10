@@ -10,33 +10,257 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedAgentsRouteImport } from './routes/_authenticated/agents'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDisputesRouteImport } from './routes/_authenticated/disputes'
+import { Route as AuthenticatedRefundsRouteImport } from './routes/_authenticated/refunds'
+import { Route as AuthenticatedSandboxRouteImport } from './routes/_authenticated/sandbox'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as PaypalReturnRouteImport } from './routes/paypal.return'
+import { Route as AuthenticatedFraudIndexRouteImport } from './routes/_authenticated/fraud.index'
+import { Route as AuthenticatedFraudIdRouteImport } from './routes/_authenticated/fraud.$id'
+import { Route as AuthenticatedTransactionsIndexRouteImport } from './routes/_authenticated/transactions.index'
+import { Route as AuthenticatedTransactionsIdRouteImport } from './routes/_authenticated/transactions.$id'
+import { Route as ApiAgentsChatRouteImport } from './routes/api/agents/chat'
+import { Route as ApiPublicPaypalWebhookRouteImport } from './routes/api/public/paypal/webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAgentsRoute = AuthenticatedAgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDisputesRoute = AuthenticatedDisputesRouteImport.update({
+  id: '/disputes',
+  path: '/disputes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRefundsRoute = AuthenticatedRefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSandboxRoute = AuthenticatedSandboxRouteImport.update({
+  id: '/sandbox',
+  path: '/sandbox',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const PaypalReturnRoute = PaypalReturnRouteImport.update({
+  id: '/paypal/return',
+  path: '/paypal/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedFraudIndexRoute = AuthenticatedFraudIndexRouteImport.update({
+  id: '/fraud/',
+  path: '/fraud/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedFraudIdRoute = AuthenticatedFraudIdRouteImport.update({
+  id: '/fraud/$id',
+  path: '/fraud/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTransactionsIndexRoute =
+  AuthenticatedTransactionsIndexRouteImport.update({
+    id: '/transactions/',
+    path: '/transactions/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTransactionsIdRoute =
+  AuthenticatedTransactionsIdRouteImport.update({
+    id: '/transactions/$id',
+    path: '/transactions/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiAgentsChatRoute = ApiAgentsChatRouteImport.update({
+  id: '/api/agents/chat',
+  path: '/api/agents/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPaypalWebhookRoute = ApiPublicPaypalWebhookRouteImport.update({
+  id: '/api/public/paypal/webhook',
+  path: '/api/public/paypal/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/disputes': typeof AuthenticatedDisputesRoute
+  '/refunds': typeof AuthenticatedRefundsRoute
+  '/sandbox': typeof AuthenticatedSandboxRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/paypal/return': typeof PaypalReturnRoute
+  '/fraud/$id': typeof AuthenticatedFraudIdRoute
+  '/transactions/$id': typeof AuthenticatedTransactionsIdRoute
+  '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/fraud/': typeof AuthenticatedFraudIndexRoute
+  '/transactions/': typeof AuthenticatedTransactionsIndexRoute
+  '/api/public/paypal/webhook': typeof ApiPublicPaypalWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/agents': typeof AuthenticatedAgentsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/disputes': typeof AuthenticatedDisputesRoute
+  '/refunds': typeof AuthenticatedRefundsRoute
+  '/sandbox': typeof AuthenticatedSandboxRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/paypal/return': typeof PaypalReturnRoute
+  '/fraud/$id': typeof AuthenticatedFraudIdRoute
+  '/transactions/$id': typeof AuthenticatedTransactionsIdRoute
+  '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/fraud': typeof AuthenticatedFraudIndexRoute
+  '/transactions': typeof AuthenticatedTransactionsIndexRoute
+  '/api/public/paypal/webhook': typeof ApiPublicPaypalWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/agents': typeof AuthenticatedAgentsRoute
+  '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/disputes': typeof AuthenticatedDisputesRoute
+  '/_authenticated/refunds': typeof AuthenticatedRefundsRoute
+  '/_authenticated/sandbox': typeof AuthenticatedSandboxRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/paypal/return': typeof PaypalReturnRoute
+  '/_authenticated/fraud/$id': typeof AuthenticatedFraudIdRoute
+  '/_authenticated/transactions/$id': typeof AuthenticatedTransactionsIdRoute
+  '/api/agents/chat': typeof ApiAgentsChatRoute
+  '/_authenticated/fraud/': typeof AuthenticatedFraudIndexRoute
+  '/_authenticated/transactions/': typeof AuthenticatedTransactionsIndexRoute
+  '/api/public/paypal/webhook': typeof ApiPublicPaypalWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/agents'
+    | '/assistant'
+    | '/dashboard'
+    | '/disputes'
+    | '/refunds'
+    | '/sandbox'
+    | '/settings'
+    | '/paypal/return'
+    | '/fraud/$id'
+    | '/transactions/$id'
+    | '/api/agents/chat'
+    | '/fraud/'
+    | '/transactions/'
+    | '/api/public/paypal/webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/agents'
+    | '/assistant'
+    | '/dashboard'
+    | '/disputes'
+    | '/refunds'
+    | '/sandbox'
+    | '/settings'
+    | '/paypal/return'
+    | '/fraud/$id'
+    | '/transactions/$id'
+    | '/api/agents/chat'
+    | '/fraud'
+    | '/transactions'
+    | '/api/public/paypal/webhook'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/_authenticated/agents'
+    | '/_authenticated/assistant'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/disputes'
+    | '/_authenticated/refunds'
+    | '/_authenticated/sandbox'
+    | '/_authenticated/settings'
+    | '/paypal/return'
+    | '/_authenticated/fraud/$id'
+    | '/_authenticated/transactions/$id'
+    | '/api/agents/chat'
+    | '/_authenticated/fraud/'
+    | '/_authenticated/transactions/'
+    | '/api/public/paypal/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  PaypalReturnRoute: typeof PaypalReturnRoute
+  ApiAgentsChatRoute: typeof ApiAgentsChatRoute
+  ApiPublicPaypalWebhookRoute: typeof ApiPublicPaypalWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +272,175 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/agents': {
+      id: '/_authenticated/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AuthenticatedAgentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/disputes': {
+      id: '/_authenticated/disputes'
+      path: '/disputes'
+      fullPath: '/disputes'
+      preLoaderRoute: typeof AuthenticatedDisputesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/refunds': {
+      id: '/_authenticated/refunds'
+      path: '/refunds'
+      fullPath: '/refunds'
+      preLoaderRoute: typeof AuthenticatedRefundsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sandbox': {
+      id: '/_authenticated/sandbox'
+      path: '/sandbox'
+      fullPath: '/sandbox'
+      preLoaderRoute: typeof AuthenticatedSandboxRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/paypal/return': {
+      id: '/paypal/return'
+      path: '/paypal/return'
+      fullPath: '/paypal/return'
+      preLoaderRoute: typeof PaypalReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/fraud/': {
+      id: '/_authenticated/fraud/'
+      path: '/fraud'
+      fullPath: '/fraud/'
+      preLoaderRoute: typeof AuthenticatedFraudIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/fraud/$id': {
+      id: '/_authenticated/fraud/$id'
+      path: '/fraud/$id'
+      fullPath: '/fraud/$id'
+      preLoaderRoute: typeof AuthenticatedFraudIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/transactions/': {
+      id: '/_authenticated/transactions/'
+      path: '/transactions'
+      fullPath: '/transactions/'
+      preLoaderRoute: typeof AuthenticatedTransactionsIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/transactions/$id': {
+      id: '/_authenticated/transactions/$id'
+      path: '/transactions/$id'
+      fullPath: '/transactions/$id'
+      preLoaderRoute: typeof AuthenticatedTransactionsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/agents/chat': {
+      id: '/api/agents/chat'
+      path: '/api/agents/chat'
+      fullPath: '/api/agents/chat'
+      preLoaderRoute: typeof ApiAgentsChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/paypal/webhook': {
+      id: '/api/public/paypal/webhook'
+      path: '/api/public/paypal/webhook'
+      fullPath: '/api/public/paypal/webhook'
+      preLoaderRoute: typeof ApiPublicPaypalWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAgentsRoute: typeof AuthenticatedAgentsRoute
+  AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDisputesRoute: typeof AuthenticatedDisputesRoute
+  AuthenticatedRefundsRoute: typeof AuthenticatedRefundsRoute
+  AuthenticatedSandboxRoute: typeof AuthenticatedSandboxRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedFraudIdRoute: typeof AuthenticatedFraudIdRoute
+  AuthenticatedTransactionsIdRoute: typeof AuthenticatedTransactionsIdRoute
+  AuthenticatedFraudIndexRoute: typeof AuthenticatedFraudIndexRoute
+  AuthenticatedTransactionsIndexRoute: typeof AuthenticatedTransactionsIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAgentsRoute: AuthenticatedAgentsRoute,
+  AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDisputesRoute: AuthenticatedDisputesRoute,
+  AuthenticatedRefundsRoute: AuthenticatedRefundsRoute,
+  AuthenticatedSandboxRoute: AuthenticatedSandboxRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedFraudIdRoute: AuthenticatedFraudIdRoute,
+  AuthenticatedTransactionsIdRoute: AuthenticatedTransactionsIdRoute,
+  AuthenticatedFraudIndexRoute: AuthenticatedFraudIndexRoute,
+  AuthenticatedTransactionsIndexRoute: AuthenticatedTransactionsIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  PaypalReturnRoute: PaypalReturnRoute,
+  ApiAgentsChatRoute: ApiAgentsChatRoute,
+  ApiPublicPaypalWebhookRoute: ApiPublicPaypalWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
