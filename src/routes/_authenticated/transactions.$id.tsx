@@ -34,7 +34,7 @@ function TxDetail() {
   const events = useQuery(eventsQuery(id));
   const risk = useMemo(() => (tx ? assessTransaction({ ...tx, amount: Number(tx.amount) }, txs.map((t) => ({ ...t, amount: Number(t.amount) }))) : null), [tx, txs]);
   if (!tx) return <><PageHeader title="Transaction not found" back /><PageBody><p>This transaction doesn't exist or isn't yours.</p></PageBody></>;
-  const ex = STATUS_EXPLAIN[tx.status] ?? STATUS_EXPLAIN.pending!;
+  const ex = STATUS_EXPLAIN[tx.status] ?? STATUS_EXPLAIN["pending"]!;
 
   return (
     <>

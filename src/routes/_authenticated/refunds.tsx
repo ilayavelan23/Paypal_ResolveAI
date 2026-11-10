@@ -17,10 +17,10 @@ import { refundsQuery, transactionsQuery } from "@/lib/queries";
 import { checkRefundEligibility } from "@/lib/refund-eligibility";
 import { formatDate, formatMoney } from "@/lib/format";
 
-type Search = { txn?: string };
+type Search = { txn?: string | undefined };
 
 export const Route = createFileRoute("/_authenticated/refunds")({
-  validateSearch: (s: Record<string, unknown>): Search => ({ txn: typeof s.txn === "string" ? s.txn : undefined }),
+  validateSearch: (s: Record<string, unknown>): Search => ({ txn: typeof s["txn"] === "string" ? s["txn"] : undefined }),
   head: () => ({
     meta: [
       { title: "Refund Center — PayPal ResolveAI" },
@@ -65,7 +65,7 @@ function RefundsPage() {
         <div className="grid gap-5 lg:grid-cols-2">
           <Panel>
             <PanelTitle title="Refund Eligibility Check" />
-            <Select value={tx?.id} onValueChange={setSel}>
+            <Select value={tx?.id ?? ""} onValueChange={setSel}>
               <SelectTrigger aria-label="Transaction"><SelectValue placeholder="Choose a transaction" /></SelectTrigger>
               <SelectContent>{(txs.data ?? []).map((t) => <SelectItem key={t.id} value={t.id}>{t.reference} · {t.merchant} · {formatMoney(t.amount)}</SelectItem>)}</SelectContent>
             </Select>

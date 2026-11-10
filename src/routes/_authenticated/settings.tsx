@@ -54,7 +54,7 @@ function SettingsPage() {
   const test = useMutation({ mutationFn: () => testFn(), onSuccess: (r) => (r.ok ? toast.success("PayPal Sandbox OAuth succeeded.") : toast.error(r.error)) });
   async function resetDemo() {
     const { error } = await supabase.rpc("reset_demo_data");
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries();
     toast.success("Demo data reset. Sandbox records were kept.");
   }

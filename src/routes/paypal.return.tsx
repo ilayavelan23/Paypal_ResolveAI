@@ -9,13 +9,13 @@ import { BrandLockup } from "@/components/app/brand";
 import { CaptureFlow } from "@/components/app/sandbox-flow";
 import { Panel } from "@/components/app/ui-bits";
 
-type Search = { token?: string; PayerID?: string; cancelled?: string };
+type Search = { token?: string | undefined; PayerID?: string | undefined; cancelled?: string | undefined };
 
 export const Route = createFileRoute("/paypal/return")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    token: typeof s.token === "string" ? s.token.slice(0, 64) : undefined,
-    PayerID: typeof s.PayerID === "string" ? s.PayerID.slice(0, 64) : undefined,
-    cancelled: typeof s.cancelled === "string" ? s.cancelled : undefined,
+    token: typeof s["token"] === "string" ? s["token"].slice(0, 64) : undefined,
+    PayerID: typeof s["PayerID"] === "string" ? s["PayerID"].slice(0, 64) : undefined,
+    cancelled: typeof s["cancelled"] === "string" ? s["cancelled"] : undefined,
   }),
   head: () => ({
     meta: [

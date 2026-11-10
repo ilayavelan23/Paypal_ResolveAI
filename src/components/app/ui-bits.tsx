@@ -15,7 +15,7 @@ export function PanelTitle({
 }: {
   icon?: LucideIcon;
   title: string;
-  subtitle?: string;
+  subtitle?: string | undefined;
   action?: ReactNode;
   iconClass?: string;
 }) {

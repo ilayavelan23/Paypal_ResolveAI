@@ -12,12 +12,12 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import shieldBot from "@/assets/auth-bot-shield.png";
 
-type Search = { mode?: "signin" | "signup"; redirect?: string };
+type Search = { mode?: "signin" | "signup" | undefined; redirect?: string | undefined };
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    mode: s.mode === "signup" ? "signup" : "signin",
-    redirect: typeof s.redirect === "string" ? s.redirect : undefined,
+    mode: s["mode"] === "signup" ? "signup" : "signin",
+    redirect: typeof s["redirect"] === "string" ? s["redirect"] : undefined,
   }),
   head: () => ({
     meta: [

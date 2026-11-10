@@ -13,7 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { disputesQuery, evidenceQuery, transactionsQuery } from "@/lib/queries";
 import { DISPUTE_REASON_LABEL, formatMoney } from "@/lib/format";
 
-type Search = { txn?: string };
+type Search = { txn?: string | undefined };
 const CHECKLIST = [
   ["order_confirmation", "Transaction or order confirmation"],
   ["seller_communication", "Communication with the seller"],
@@ -23,7 +23,7 @@ const CHECKLIST = [
 const ALLOWED = ["image/jpeg", "image/png", "application/pdf"];
 
 export const Route = createFileRoute("/_authenticated/disputes")({
-  validateSearch: (s: Record<string, unknown>): Search => ({ txn: typeof s.txn === "string" ? s.txn : undefined }),
+  validateSearch: (s: Record<string, unknown>): Search => ({ txn: typeof s["txn"] === "string" ? s["txn"] : undefined }),
   head: () => ({
     meta: [
       { title: "Dispute Assistant — PayPal ResolveAI" },
@@ -51,10 +51,10 @@ function DisputesPage() {
   const [item, setItem] = useState<string>("order_confirmation");
 
   async function create() {
-    if (!newTx) return toast.error("Choose a transaction");
+    if (!newTx) { toast.error("Choose a transaction"); return; }
     const { data: u } = await supabase.auth.getUser();
     const { data, error } = await supabase.from("disputes").insert({ user_id: u.user!.id, transaction_id: newTx, reference: `CASE-${crypto.randomUUID().slice(0, 8).toUpperCase()}`, reason, description: desc.slice(0, 1000), status: "draft" }).select("id").single();
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     setSelected(data.id);
     setDesc("");
     qc.invalidateQueries({ queryKey: ["disputes"] });
@@ -63,14 +63,14 @@ function DisputesPage() {
 
   async function upload(file: File) {
     if (!dispute) return;
-    if (!ALLOWED.includes(file.type)) return toast.error("Only JPG, PNG or PDF files are allowed.");
-    if (file.size > 10 * 1024 * 1024) return toast.error("Max 10 MB per file.");
+    if (!ALLOWED.includes(file.type)) { toast.error("Only JPG, PNG or PDF files are allowed."); return; }
+    if (file.size > 10 * 1024 * 1024) { toast.error("Max 10 MB per file."); return; }
     const { data: u } = await supabase.auth.getUser();
     const path = `${u.user!.id}/${dispute.id}/${crypto.randomUUID()}-${file.name.replace(/[^\w.-]/g, "_").slice(0, 80)}`;
     const up = await supabase.storage.from("dispute-evidence").upload(path, file, { contentType: file.type });
-    if (up.error) return toast.error(up.error.message);
+    if (up.error) { toast.error(up.error.message); return; }
     const { error } = await supabase.from("dispute_evidence").insert({ user_id: u.user!.id, dispute_id: dispute.id, file_name: file.name.slice(0, 120), file_path: path, file_size: file.size, mime_type: file.type, checklist_item: item });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["evidence", dispute.id] });
     toast.success("Evidence uploaded");
   }
@@ -99,7 +99,7 @@ function DisputesPage() {
           <Panel>
             <PanelTitle title="Start a case file" />
             <div className="space-y-3">
-              <Select value={newTx} onValueChange={setNewTx}>
+              <Select value={newTx ?? ""} onValueChange={setNewTx}>
                 <SelectTrigger aria-label="Transaction"><SelectValue placeholder="Choose transaction" /></SelectTrigger>
                 <SelectContent>{(txs.data ?? []).map((x) => <SelectItem key={x.id} value={x.id}>{x.reference} · {x.merchant} · {formatMoney(x.amount)}</SelectItem>)}</SelectContent>
               </Select>
@@ -121,7 +121,7 @@ function DisputesPage() {
             <Panel>
               <PanelTitle title={`Case ${dispute.reference}`} subtitle={`${DISPUTE_REASON_LABEL[dispute.reason]} · ${t?.merchant ?? ""} ${t ? formatMoney(t.amount) : ""}`} action={<SourceBadge source={dispute.source === "demo" ? "demo" : t?.source ?? "demo"} />} />
               <div className="mb-4 flex flex-wrap gap-2">
-                {["draft", "evidence_submitted", "under_review", "resolved", "closed"].map((s) => <Button key={s} size="sm" variant={dispute.status === s ? "default" : "outline"} onClick={() => setStatus(s)}>{s.replace("_", " ")}</Button>)}
+                {["draft", "evidence_submitted", "under_review", "resolved", "closed"].map((s) => <Button key={s} size="sm" variant={dispute.status === s ? "default" : "outline"} onClick={() => setStatus(s)}>{s["replace"]("_", " ")}</Button>)}
               </div>
               <p className="mb-2 text-sm font-semibold">Evidence checklist ({done.size}/4)</p>
               <ul className="mb-4 space-y-1 text-sm">{CHECKLIST.map(([k, l]) => <li key={k} className="flex items-center gap-2">{done.has(k) ? <CheckCircle2 className="h-4 w-4 text-success" /> : <Circle className="h-4 w-4 text-muted-foreground" />}{l}</li>)}</ul>

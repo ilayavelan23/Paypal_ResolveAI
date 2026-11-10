@@ -45,7 +45,7 @@ function SandboxPage() {
   const create = useMutation({
     mutationFn: () => createFn({ data: { merchant, description, amount: Number(amount), idempotencyKey: key } }),
     onSuccess: async (r) => {
-      if (!r.ok) return toast.error(r.error);
+      if (!r.ok) { toast.error(r.error); return; }
       setKey(crypto.randomUUID());
       await qc.invalidateQueries({ queryKey: ["transactions"] });
       setActiveId(r.transactionId);

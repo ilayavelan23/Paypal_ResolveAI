@@ -17,7 +17,7 @@ import {
 import { runFraudScanFor } from "./fraud-scan.server";
 
 type Ok<T> = { ok: true } & T;
-type Fail = { ok: false; error: string; code?: string };
+type Fail = { ok: false; error: string; code?: string | undefined };
 
 function fail(e: unknown): Fail {
   if (e instanceof PayPalError) {

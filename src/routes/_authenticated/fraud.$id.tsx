@@ -42,7 +42,7 @@ function FraudDetail() {
   async function setStatus(status: "confirmed_legit" | "reported") {
     if (!alert) return;
     const { error } = await supabase.from("fraud_alerts").update({ status }).eq("id", alert.id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(status === "reported" ? "Marked as reported. Secure your account and contact PayPal." : "Thanks — marked as authorized by you.");
     qc.invalidateQueries({ queryKey: ["fraud_alerts"] });
   }

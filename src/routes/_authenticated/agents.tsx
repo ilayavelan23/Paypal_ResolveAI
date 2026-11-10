@@ -10,10 +10,10 @@ import { messagesQuery, sessionsQuery } from "@/lib/queries";
 import { AGENT_META, type AgentRun } from "@/lib/agents/definitions";
 import botImg from "@/assets/resolve-bot.png";
 
-type Search = { session?: string };
+type Search = { session?: string | undefined };
 
 export const Route = createFileRoute("/_authenticated/agents")({
-  validateSearch: (s: Record<string, unknown>): Search => ({ session: typeof s.session === "string" ? s.session : undefined }),
+  validateSearch: (s: Record<string, unknown>): Search => ({ session: typeof s["session"] === "string" ? s["session"] : undefined }),
   head: () => ({
     meta: [
       { title: "Multi-Agent Workspace — PayPal ResolveAI" },

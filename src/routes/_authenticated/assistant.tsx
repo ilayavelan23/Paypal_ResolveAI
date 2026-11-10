@@ -15,13 +15,13 @@ import { timeAgo } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import botImg from "@/assets/resolve-bot.png";
 
-type Search = { session?: string; txn?: string; q?: string };
+type Search = { session?: string | undefined; txn?: string | undefined; q?: string | undefined };
 
 export const Route = createFileRoute("/_authenticated/assistant")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    session: typeof s.session === "string" ? s.session : undefined,
-    txn: typeof s.txn === "string" ? s.txn : undefined,
-    q: typeof s.q === "string" ? s.q.slice(0, 500) : undefined,
+    session: typeof s["session"] === "string" ? s["session"] : undefined,
+    txn: typeof s["txn"] === "string" ? s["txn"] : undefined,
+    q: typeof s["q"] === "string" ? s["q"].slice(0, 500) : undefined,
   }),
   head: () => ({
     meta: [
@@ -68,10 +68,10 @@ function AssistantPage() {
           </div>
           <ul className="space-y-1">
             {(sessions.data ?? []).map((s) => (
-              <li key={s.id}>
-                <Link to="/assistant" search={{ session: s.id }} onClick={reset} className={cn("block rounded-xl px-3 py-2 text-sm hover:bg-accent", s.id === session && "bg-primary-soft")}>
-                  <span className="flex items-center gap-2 font-medium"><MessageSquare className="h-4 w-4 shrink-0 text-primary" /> <span className="truncate">{s.title}</span></span>
-                  <span className="text-xs text-muted-foreground">{timeAgo(s.updated_at)}</span>
+              <li key={s["id"]}>
+                <Link to="/assistant" search={{ session: s["id"] }} onClick={reset} className={cn("block rounded-xl px-3 py-2 text-sm hover:bg-accent", s["id"] === session && "bg-primary-soft")}>
+                  <span className="flex items-center gap-2 font-medium"><MessageSquare className="h-4 w-4 shrink-0 text-primary" /> <span className="truncate">{s["title"]}</span></span>
+                  <span className="text-xs text-muted-foreground">{timeAgo(s["updated_at"])}</span>
                 </Link>
               </li>
             ))}
@@ -102,7 +102,7 @@ function AssistantPage() {
                 />
               )}
               {persisted.map((m) => (
-                <Message key={m.id} from={m.role}>
+                <Message key={m.id} from={m.role as "user" | "assistant"}>
                   <MessageContent className={m.role === "user" ? "group-[.is-user]:bg-primary group-[.is-user]:text-primary-foreground" : ""}>
                     {m.role === "assistant" ? (
                       <>
