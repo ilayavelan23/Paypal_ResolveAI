@@ -1,6 +1,5 @@
-
-
-
+URL to a working demo
+https://paypal-dispute-compass.lovable.app
 
 # PayPal ResolveAI
 ### AI-Powered Payment Resolution Assistant
