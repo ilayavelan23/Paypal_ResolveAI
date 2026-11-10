@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { Database } from "@/integrations/supabase/types";
 import { verifyWebhookSignature, PayPalError } from "@/lib/paypal.server";
 
 type WebhookEvent = {
@@ -84,7 +85,7 @@ export const Route = createFileRoute("/api/public/paypal/webhook")({
 
         const nextStatus = STATUS_BY_EVENT[event.event_type];
         if (tx && nextStatus) {
-          const update: Record<string, unknown> = { status: nextStatus, verified_at: new Date().toISOString() };
+          const update: Database["public"]["Tables"]["transactions"]["Update"] = { status: nextStatus, verified_at: new Date().toISOString() };
           if (event.event_type.startsWith("PAYMENT.CAPTURE") && res.id && !event.event_type.endsWith("REFUNDED")) {
             update["paypal_capture_id"] = res.id;
             update["paypal_capture_status"] = res.status ?? null;
